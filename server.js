@@ -20,7 +20,7 @@ if (!process.env.GROQ_API_KEY) {
   console.log("Success: Groq API Key loaded.");
 }
 
-app.use(cors({ origin: 'http://localhost:3000' }));
+app.use(cors({ origin: 'https://groweasy-web-dldm.onrender.com' }));
 app.use(express.json());
 
 // Helper function to map data via AI
@@ -88,4 +88,5 @@ app.post('/api/upload', upload.single('file'), async (req, res) => {
   }
 });
 
-app.listen(5000, () => console.log('Server running on http://localhost:5000'));
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log('Server running on port ' + PORT));
