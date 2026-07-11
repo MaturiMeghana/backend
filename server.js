@@ -20,7 +20,20 @@ if (!process.env.GROQ_API_KEY) {
   console.log("Success: Groq API Key loaded.");
 }
 
-app.use(cors({ origin: 'https://groweasy-web-dldm.onrender.com' }));
+const allowedOrigins = [
+  'http://localhost:3000',
+  'https://groweasy-web-dldm.onrender.com',
+];
+
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  }
+}));
 app.use(express.json());
 
 // Helper function to map data via AI
